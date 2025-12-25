@@ -1,16 +1,19 @@
 <?php
 require_once __DIR__ . '/src/Entity/Department.php';
 require_once  'testConnection.php';
+require_once 'src/Service/UniversityService.php';
 $db = new TestConnection();
 $pdo = $db->connect();
 echo "Please Login to use the app !\n";
 $email = readline("email : ");
 $password = readline("Password: ");
-echo"";
+echo "";
 echo "Departements menu :\n";
 echo "-------------------\n";
 echo "1- Add new departement\n";
 echo "2- View all departements\n";
+echo "3- Update infos of a department\n";
+echo "4- Delete an departement\n";
 $choice = readline("Enter your choice : ");
 switch ($choice) {
     case 1:
@@ -21,7 +24,16 @@ switch ($choice) {
         echo $NewDepartment->SaveToDatabase($pdo);
         break;
     case 2:
-        echo"You chose 2";
-    default :
-    $choice = readline("please enter a valid choice : ");
+        echo "Available departments : \n";
+        $departments = UniversityService::DisplayAllDeps($pdo);
+        if (empty($departments)) {
+            echo "No departments found.\n";
+        } else {
+            foreach ($departments as $dept) {
+                echo "ID: " . $dept['id'] . " | Name: " . $dept['name'] . " | Subject: " . $dept['matiere'] . "\n";
+            }
+        }
+        break;
+    default:
+        $choice = readline("please enter a valid choice : ");
 }

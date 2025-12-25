@@ -22,7 +22,7 @@ class Department
         return $this->name;
     }
     public function getMatiere()
-    {   
+    {
         return $this->matiere;
     }
     public function getDescription()
@@ -38,9 +38,5 @@ class Department
             $this->name = $name;
             return true;
         }
-    }
-    public function display()
-    {
-        return "Name: " . $this->name . ", Matiere: " . $this->matiere . ", Description: " . $this->description;
     }
 }
