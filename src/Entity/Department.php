@@ -1,42 +1,26 @@
 <?php
-require_once './testConnection.php';
 class Department
 {
-    private $name;
-    public $matiere;
-    public $description;
-    public function __construct($name, $matiere, $description)
+    private string $name;
+    private string $matiere;
+    private string $description;
+
+    public function __construct(string $name, string $matiere, string $description)
     {
         $this->name = $name;
         $this->matiere = $matiere;
         $this->description = $description;
     }
-    public function SaveToDatabase($pdo)
-    {
-        $stmt = $pdo->prepare("INSERT INTO Departements (name, matiere, description) VALUES (?, ?, ?)");
-        $stmt->execute([$this->name, $this->matiere, $this->description]);
-        return "Department saved successfully";
-    }
-    public function getName()
-    {
-        return $this->name;
-    }
-    public function getMatiere()
-    {
-        return $this->matiere;
-    }
-    public function getDescription()
-    {
-        return $this->description;
-    }
 
-    public function setName($name)
+    public function getName(): string { return $this->name; }
+    public function getMatiere(): string { return $this->matiere; }
+    public function getDescription(): string { return $this->description; }
+    
+    public function setName(string $name): void
     {
         if (strlen($name) < 2) {
-            return "Name too short";
-        } else {
-            $this->name = $name;
-            return true;
+            throw new Exception("Name too short");
         }
+        $this->name = $name;
     }
 }
