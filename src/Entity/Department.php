@@ -22,7 +22,7 @@ class Department
         return $this->name;
     }
     public function getMatiere()
-    {
+    {   
         return $this->matiere;
     }
     public function getDescription()
